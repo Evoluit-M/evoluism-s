@@ -1,0 +1,64 @@
+name: Build LaTeX PDF
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup TeX Live
+        uses: teatimeguest/setup-texlive-action@v3
+        with:
+          packages: >-
+            scheme-medium
+            latexmk
+            pgfplots
+            xcolor
+            siunitx
+            booktabs
+            geometry
+            hyperref
+            amsmath
+            amssymb
+            mathtools
+            adjustbox
+            caption
+            enumitem
+            float
+
+      - name: Build PDF with latexmk
+        working-directory: paper
+        run: |
+          latexmk -pdf -interaction=nonstopmode -file-line-error paper.tex
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Evoluism-S-PDF
+          path: paper/paper.pdf
+
+  attach-to-release:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Evoluism-S-PDF
+          path: .
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            paper.pdf
