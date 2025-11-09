@@ -1,0 +1,273 @@
+
+\documentclass[11pt,a4paper]{article}
+
+% --- Encoding & Fonts
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% --- Geometry
+\usepackage[margin=1in]{geometry}
+
+% --- Math & Symbols
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{siunitx}
+
+% --- Tables
+\usepackage{booktabs}
+\usepackage{adjustbox}
+
+% --- Graphics
+\usepackage{graphicx}
+\graphicspath{{./}{figures/}} % ищет и в корне, и в подпапке figures
+
+% --- Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  breaklinks=true
+}
+
+% --- Floats, Captions, Typography
+\usepackage{float}
+\usepackage{caption}
+\usepackage[section]{placeins}
+\usepackage{parskip}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*, labelsep=0.5em}
+\setlist[enumerate]{leftmargin=*, labelsep=0.5em}
+\usepackage{xcolor}
+
+% --------------------------------------------------------------
+\title{\textbf{Evoluism (S): Cognitive Capital as Order Parameter in the Co-Evolutionary Dynamics of Complex Adaptive Systems}}
+\author{Evoluit-M \\ \textit{Independent Theoretical Research Evoluism Initiative}}
+\date{08 November 2025}
+
+\begin{document}
+\maketitle
+
+% --------------------------------------------------------------
+\begin{abstract}
+Evoluism (S) introduces \emph{cognitive capital} ($C$) as an \emph{order parameter} governing the co-evolutionary acceleration of complex adaptive systems. Drawing on synergetics and general systems theory, innovation trajectories are modeled as self-organizing processes modulated by positive feedback from $C$. Using a dynamic panel of 85 countries (2001--2024, $n \approx 2{,}040$), a semi-log system-dynamics estimator identifies a robust coordination coefficient $\beta_{\text{synergy}} = 0.70$ ($p < 0.01$), indicating that a one–standard-deviation increase in $C$ amplifies expected patent intensity by $\approx +101\%$. A logistic differential equation serves as a mechanistic archetype: $\frac{dX}{dt} = \alpha X (1 - X/K) + \beta_{\text{synergy}} C$, where $C$ elevates the system’s carrying capacity and growth rate. Cross-scale validation is planned for 2026 across biological (Drosophila), computational (RL agents), and epigenetic (mice) systems. All data, code, and replication environments are open source.
+
+\textbf{Continuity note.} This paper extends the scientific line of research within the Evoluism framework and complements the conceptual foundation published as \textit{“EVOLUISM: Three Reflections of One Reality”} (Zenodo: \href{https://doi.org/10.5281/zenodo.17547103}{10.5281/zenodo.17547103}). Conceptual aspects are referenced for context only; this work is strictly empirical and methodological.
+\end{abstract}
+
+\section*{Keywords}
+Complex adaptive systems; co-evolution; order parameter; positive feedback; synergetics; self-organization; reproducibility; falsifiability
+
+% --------------------------------------------------------------
+\section{Introduction}
+
+Complex systems—economies, ecosystems, or cultures—evolve not through linear causation but via \emph{co-evolutionary feedback} between components operating at multiple scales \cite{haken1977,bertalanffy1968}. In such systems, innovation is not merely an output but a \emph{collective variable} reflecting systemic coordination. Evoluism (S) proposes that this coordination is modulated by an emergent property: \textbf{cognitive capital} ($C$), defined as the capacity of a system to generate, store, and deploy structured information for adaptive transformation.
+
+Far from a static stock, $C$ functions as a coordination or \emph{feedback gain} in the sense of synergetics \cite{haken1977}: it constrains subsystem dynamics, reduces effective degrees of freedom, and drives the system toward higher-level attractors. In national innovation systems, $C$ integrates:
+\begin{itemize}
+  \item \emph{Tertiary education} — memory and skill transmission,
+  \item \emph{R\&D intensity} — exploratory variation,
+  \item \emph{Institutional freedom} — selective retention and recombination.
+\end{itemize}
+These are not independent inputs but coherently aligned under $C$.
+
+$C$ is operationalized as the first principal component (PC1, 78\% variance explained) of the standardized triad above. A semi-log dynamic panel (Arellano--Bond GMM) serves not as a causal claim but as a phase-space mapping of co-evolutionary trajectories:
+\begin{equation}
+\label{eq:semilog}
+\log(X_{it} + 1) = \rho \log(X_{i,t-1} + 1) + \beta_{\text{synergy}} C_{it} + \beta_2 \log(\text{GDP}_{it}) + \alpha_i + \gamma_t + \varepsilon_{it},
+\end{equation}
+where $X_{it}$ is patent intensity, $\rho$ reflects inertial self-organization, and $\beta_{\text{synergy}} = 0.70$ quantifies the average coordination gain per standard deviation of $C$.
+
+Complementing this, a minimal archetypal model captures bounded growth with cognitive modulation:
+\begin{equation}
+\label{eq:logistic}
+\frac{dX}{dt} = \alpha X \left(1 - \frac{X}{K}\right) + \beta_{\text{synergy}} C.
+\end{equation}
+Here, $C$ acts as a control parameter that shifts equilibrium and accelerates convergence—analogous to temperature in a laser or stress in a buckling beam.
+
+% --------------------------------------------------------------
+\section{Theoretical Framework}
+
+Equation \eqref{eq:semilog} maps the joint evolution of innovation ($X_{it}$) and cognitive capital ($C_{it}$) in the presence of inertial ($\rho$) and environmental ($\log(\text{GDP}_{it})$) constraints. Estimation uses Arellano--Bond GMM (two-step robust, Windmeijer correction, collapsed instruments, lag depth 2--3; $N_{\text{instr}} = 68$, $N_{\text{instr}}/N = 68/85$).  
+A System GMM variant (Blundell--Bond) yields similar coefficients, confirming robustness to Nickell bias.
+
+Equation \eqref{eq:logistic} serves as a qualitative archetype of bounded self-organization under cognitive forcing. $C$ modulates both intrinsic growth rate and effective carrying capacity $K(C)$.
+
+% --------------------------------------------------------------
+\section{Data and Construction of the Order Parameter $C$}
+
+Dataset: 85 countries, 2001--2024 ($n \approx 2{,}040$).
+
+\textbf{Dependent variable:} $X_{it}$ = patents per million population (WIPO/OECD).  
+\textbf{Controls:} $\log(\text{GDP per capita}_{it})$, population, country and time effects.
+
+\textbf{Order parameter $C$:} first principal component (PC1) of z-scored inputs:
+\[
+C_{it} = \ell_E Z(\text{Education}_{it}) + \ell_R Z(\text{R\&D}_{it}) + \ell_F Z(\text{Freedom}_{it}).
+\]
+PC1 explains 78\% of total variance.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Component & Education (years) & R\&D (\% GDP) & Economic Freedom \\
+\midrule
+PC1 loading $\ell$ & 0.48 & 0.31 & 0.21 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Loadings of variables composing the order parameter $C$.}
+\end{table}
+
+One additional year of tertiary education shifts $C$ by $\kappa \approx 0.32$ SD (see Appendix~A).
+
+% --------------------------------------------------------------
+\section{Empirical Results}
+
+\subsection{Cross-sectional Snapshot (2024)}
+\[
+Y_i \sim \text{NB}(\mu_i, \theta), \quad \log \mu_i = \beta_0 + \beta_{\text{synergy}} C_i + \beta_2 \log(\text{GDP}_i) + \log(\text{pop}_i).
+\]
+Result: $\beta_{\text{synergy}} = 0.92$ ($p < 0.01$), pseudo-$R^2 = 0.41$.
+
+\subsection{Dynamic Panel Mapping (2001--2024)}
+\[
+\rho \approx 0.63, \quad \beta_{\text{synergy}} = 0.70 \ (p < 0.01),
+\]
+Hansen $p = 0.31$, AR(2) $p = 0.22$. Robust across specifications.
+
+\subsection{Visual Baseline (Reproduced from v2)}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{Figure_S1_Patents_vs_Education_2021.png}
+  \caption{\textbf{Figure S1.} Patents per million vs.\ education (2021). Color gradient encodes institutional index. Reproduced from version v2 to preserve the original visual baseline used for macro-level validation.}
+  \label{fig:s1}
+\end{figure}
+\FloatBarrier
+
+\subsection{Robustness}
+$\beta_{\text{synergy}} \in [0.65, 0.78]$ across fixed/random effects, leave-one-out, and PCA windows. $\Delta$AIC = $-142$ favors the full model (Appendix~B).
+
+% --------------------------------------------------------------
+\section{Discussion}
+
+The coordination gain $\beta_{\text{synergy}} = 0.70$ implies that a one–standard-deviation increase in $C$ yields:
+\[
+100\!\left(e^{\beta_{\text{synergy}}} - 1\right) \approx +101\%
+\]
+in expected patent intensity. One extra year of tertiary education shifts $C$ by $\kappa \approx 0.32$ SD:
+\[
+100\!\left(e^{\beta_{\text{synergy}}\kappa} - 1\right) \approx +25\%.
+\]
+Interpretation holds for log-transformed $X$; results in low-patent regimes may overestimate marginal effects.  
+Economically, this upper-bound effect parallels Romer’s (1990) human capital externalities but is derived empirically as a coordination feedback rather than an exogenous growth factor.
+
+\subsection{Limitations}
+\begin{itemize}
+\item $C$ correlates with innovation through shared inputs; future work will test instrumented variants (e.g., historical education exposure as IV).
+\item PCA collinearity and GDP overlap require further control (VIF diagnostics planned).
+\item Macro-aggregation obscures micro-dynamics; cross-scale experiments (2026) will test micro-level analogues.
+\end{itemize}
+
+% --------------------------------------------------------------
+\section{Cross-Scale Validation Protocols (2026)}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+System & Intervention & Expected Effect \\
+\midrule
+\textit{Drosophila} & Enriched learning environment & +15--20\% fitness \\
+AI (RL agents) & Extended pre-training & +30--35\% efficiency \\
+Mice (epigenetics) & Maternal stress & Intergenerational change ($p < 0.05$) \\
+\bottomrule
+\end{tabular}
+\caption{Planned cross-scale validation of $C$-driven coordination (Q1 2026).}
+\end{table}
+
+% --------------------------------------------------------------
+\section{Falsifiability}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+Prediction & Falsification Condition \\
+\midrule
+$\beta_{\text{synergy}} > 0$ & $\beta_{\text{synergy}} \le 0$ post-diagnostics \\
+1 SD $C \mapsto +101\%$ $X$ & No amplification across specifications \\
+Per-year education $\mapsto +25\%$ & No $\Delta X$ at $\kappa \approx 0.32$ \\
+Micro-level $\Delta F > 0$ & No gain (power $\ge 0.9$) \\
+\bottomrule
+\end{tabular}
+\caption{Core falsifiability criteria.}
+\end{table}
+
+% --------------------------------------------------------------
+\section{Reproducibility}
+
+All data (OECD, UNESCO, WIPO, World Bank), code (Stata/R), and Docker environment are available at:\\
+\url{https://github.com/Evoluit-M/evoluism-s}
+
+% --------------------------------------------------------------
+\section{Conclusions}
+
+Evoluism (S) establishes $C$ as a measurable coordination parameter in co-evolutionary systems. The feedback gain $\beta_{\text{synergy}} = 0.70$ is robust ($p < 0.01$).  
+Future validation will test feedback coherence across levels of organization.
+
+% --------------------------------------------------------------
+\section{Future Work}
+\begin{enumerate}
+  \item Nonlinear $C \cdot X$ interactions and threshold bifurcations.
+  \item IV and placebo PCA to address circularity.
+  \item Spatial and Driscoll--Kraay SE extensions.
+  \item Integration of macro and micro validation programs.
+\end{enumerate}
+
+% --------------------------------------------------------------
+\section*{Appendix A: Calibration of $\kappa$}
+\[
+\kappa = \frac{\ell_E}{\sqrt{\lambda_1}} \cdot \frac{1}{\sigma_{\text{years}}}, \quad \kappa \approx 0.32.
+\]
+
+\section*{Appendix B: Model Selection}
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Model & AIC & $\Delta$AIC \\
+\midrule
+Baseline (no $C$) & 4120 & -- \\
+Full (with $C$) & 3978 & -142 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\section*{Acknowledgments}
+Thanks to OECD, UNESCO, WIPO, World Bank, Heritage Foundation, and the open-science community.
+
+\vspace{1cm}
+\begin{center}
+\small
+© 2025 Evoluit-M. Licensed under CC BY 4.0.\\
+Zenodo DOI: \href{https://doi.org/10.5281/zenodo.17565066}{10.5281/zenodo.17565066}\\
+Conceptual foundation: \href{https://doi.org/10.5281/zenodo.17547103}{10.5281/zenodo.17547103}\\
+Previous empirical version: \href{https://doi.org/10.5281/zenodo.17454336}{10.5281/zenodo.17454336}\\
+Data \& Code Repository: \href{https://github.com/Evoluit-M/evoluism-s}{https://github.com/Evoluit-M/evoluism-s}
+\end{center}
+
+
+% --------------------------------------------------------------
+\begin{thebibliography}{9}
+\bibitem{haken1977} Haken, H. \textit{Synergetics: An Introduction}. Springer, 1977.
+\bibitem{bertalanffy1968} von Bertalanffy, L. \textit{General System Theory}. George Braziller, 1968.
+\bibitem{romer1990} Romer, P. M. ``Endogenous Technological Change.'' \textit{Journal of Political Economy}, 1990.
+\bibitem{boyd2005} Boyd, R., \& Richerson, P. J. \textit{The Origin and Evolution of Cultures}. Oxford University Press, 2005.
+\bibitem{arellano1991} Arellano, M., \& Bond, S. ``Some Tests of Specification for Panel Data.'' \textit{Review of Economic Studies}, 1991.
+\end{thebibliography}
+
+\end{document}
