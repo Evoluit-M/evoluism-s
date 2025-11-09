@@ -28,7 +28,7 @@ It refines the empirical basis of the previous study
 - **Software:** Stata / R (dynamic panel estimation, PCA)  
 - **Container:** Docker (replication environment)  
 - **Main code and results:** [GitHub – evoluism-s](https://github.com/Evoluit-M/evoluism-s)  
-- **Zenodo record (v3):** [10.5281/zenodo.XXXXX](https://doi.org/10.5281/zenodo.XXXXX) ← *(update after upload)*  
+- **Zenodo record (v3):** [https://doi.org/10.5281/zenodo.17565066) 
 
 ---
 
@@ -49,7 +49,7 @@ If you reference this work, please cite:
 
 > Evoluit-M (2025). *Evoluism (S): Cognitive Capital as Order Parameter in the Co-Evolutionary Dynamics of Complex Adaptive Systems.*  
 > Independent Theoretical Research Evoluism Initiative. Zenodo.  
-> DOI: [10.5281/zenodo.XXXXX](https://doi.org/10.5281/zenodo.XXXXX)
+> DOI: [10.5281/zenodo.17565066]([https://doi.org/10.5281/zenodo.17565066])
 
 ---
 
