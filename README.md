@@ -12,7 +12,7 @@ This repository contains the LaTeX source and PDF of the scientific paper
 **“Evoluism (S): Cognitive Capital as Order Parameter in the Co-Evolutionary Dynamics of Complex Adaptive Systems.”**  
 
 The study introduces **cognitive capital (C)** as an **order parameter** driving the co-evolutionary acceleration of complex adaptive systems.  
-Using a dynamic panel of 85 countries (2001–2024), the model identifies a robust coordination coefficient  
+Using a dynamic panel of 85 countries (2001–2021), the model identifies a robust coordination coefficient  
 **β₍synergy₎ = 0.70 (p < 0.01)**, indicating that a one-standard-deviation increase in *C* amplifies innovation output by approximately **+101%**.  
 
 This article represents the **scientific register (S)** within the Evoluism framework, extending the conceptual foundation presented in  
@@ -22,7 +22,7 @@ It refines the empirical basis of the previous study
 
 ---
 
-## 📊 Data & Reproducibility
+##  Data & Reproducibility
 
 - **Data sources:** OECD, UNESCO, WIPO, World Bank  
 - **Software:** Stata / R (dynamic panel estimation, PCA)  
@@ -32,7 +32,7 @@ It refines the empirical basis of the previous study
 
 ---
 
-## 📂 Repository Contents
+##  Repository Contents
 
 | File | Description |
 |------|-------------|
@@ -43,7 +43,7 @@ It refines the empirical basis of the previous study
 
 ---
 
-## 🧩 Citation
+##  Citation
 
 If you reference this work, please cite:
 
@@ -53,14 +53,14 @@ If you reference this work, please cite:
 
 ---
 
-## 🧠 Related Works
+##  Related Works
 
 - Conceptual Framework — [Evoluism: Three Reflections of One Reality](https://doi.org/10.5281/zenodo.17547103)  
 - Previous empirical paper — [Evoluism: Quantifying the Influence of Consciousness on Evolutionary Trajectories of Complex Systems](https://doi.org/10.5281/zenodo.17454336)  
 
 ---
 
-## 🧩 License
+##  License
 
 This work is distributed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**.  
 You are free to share and adapt the material with proper attribution to the author.
