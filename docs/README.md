@@ -1,19 +1,15 @@
-# Documentation & Publications
+# Evoluism-S Publications
 
-## "An Interactive Teaching Note on Spurious Regressions"
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Evoluit-M/Evoluism-S/data-and-analysis)
 
-- **PDF**: [spurious_regression_note.pdf](spurious_regression_note.pdf)  
-- **LaTeX Source**: [spurious_regression_note.tex](spurious_regression_note.tex)  
-- **DOI**: https://doi.org/10.5281/zenodo.17600821  
+## Main Article
+**"Cognitive Capital as Order Parameter"**  
+DOI: [10.5281/zenodo.17565066](https://doi.org/10.5281/zenodo.17565066)
 
-## Related Publication
-- **"Evoluism (S): Cognitive Capital as Order Parameter..."**  
-  DOI: https://doi.org/10.5281/zenodo.17565066  
-  *(cites this note as methodological appendix)*
+- [PDF](cognitive_capital.pdf)  
+- [LaTeX](cognitive_capital.tex)  
+- **Launch Binder above** — run regression, change parameters
 
-## Interactive App
-- **Live Demo**: https://trends-collide.streamlit.app  
-- **Reproducibility**: https://mybinder.org/v2/gh/Evoluit-M/Evoluism-S/data-and-analysis  
-
-Part of **Evoluism-S** — Science branch of Evoluism doctrine  
-→ [Main doctrine](https://github.com/Evoluit-M/Evoluism)
+## Methodological Appendix
+"An Interactive Teaching Note on Spurious Regressions"  
+DOI: [10.5281/zenodo.17600821](https://doi.org/10.5281/zenodo.17600821)
