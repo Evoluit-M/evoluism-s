@@ -5,7 +5,7 @@
 **Cognitive Capital Multiplier (CCM)**  
 An Open-Source Scenario Calculator for Preliminary Assessment of Cognitive Capital Impact on National Innovation Dynamics
 
-- Full paper (PDF + LaTeX + permanent DOI) — будет через 10–15 минут
+- Full paper (PDF + LaTeX + permanent DOI)
 - Online calculator: https://cognitive-capital-multiplier.streamlit.app
 - Detailed calculations & replication files: [ccm-calculations/](./ccm-calculations/)
 
