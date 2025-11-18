@@ -1,25 +1,11 @@
+# Cognitive Capital Multiplier (CCM) — v1.0 (18 November 2025)
 
-# Evoluism-S Research Hub
+**Permanent archive:** https://doi.org/10.5281/zenodo.17635565 (under community review)  
+**Paper:** [ccm-paper.pdf](ccm-v1.0/ccm-paper.pdf) · [LaTeX source](ccm-v1.0/ccm-paper.tex)  
+**Interactive calculator:** https://cognitive-capital-multiplier.streamlit.app (live)  
+**Excel calculator:** [CCM_Calculator.xlsx](ccm-v1.0/CCM_Calculator.xlsx)  
+**Jupyter notebook:** [CCM_Calculator.ipynb](ccm-v1.0/CCM_Calculator.ipynb)  
+**Binder (run without installation):** https://mybinder.org/v2/gh/Evoluit-M/Evoluism-S/ccm-v1.0
 
-## New — November 18, 2025
-**Cognitive Capital Multiplier (CCM)**  
-An Open-Source Scenario Calculator for Preliminary Assessment of Cognitive Capital Impact on National Innovation Dynamics
-
-- Full paper (PDF + LaTeX + permanent DOI) — будет через 10–15 минут
-- Online calculator: https://cognitive-capital-multiplier.streamlit.app
-- Detailed calculations & replication files: [ccm-calculations/](./ccm-calculations/)
-
-> Key finding: +1.2 SD sustained improvement → ~2.0× innovation output by 2040 (95% CI: 1.86–2.19×)
-
----
-
-# Evoluism-S — Scientific Branch of Evoluism Doctrine
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Evoluit-M/Evoluism-S/data-and-analysis)
-
-**DOI**: [10.5281/zenodo.17565066](https://doi.org/10.5281/zenodo.17565066)  
-**Interactive App**: https://trends-collide.streamlit.app  
-**Reproducibility**: Launch above — full panel, regression, ARIMA, structural breaks
-
-→ [Main Doctrine](https://github.com/Evoluit-M/Evoluism)
-
+License: MIT (code) + CC-BY-4.0 (text & data)  
+Author: Evoluit-M, Independent Theoretical Research Evoluism Initiative

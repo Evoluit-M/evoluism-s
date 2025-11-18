@@ -1,0 +1,167 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{left=2.3cm,right=2.3cm,top=2.5cm,bottom=2.5cm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{makecell}
+\usepackage{ragged2e}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{microtype}
+
+\pagestyle{empty}
+
+\begin{document}
+
+
+\begin{center}
+    {\LARGE\textbf{Cognitive Capital Multiplier (CCM):}\\
+    \vspace{3mm}
+    An Open-Source Scenario Calculator for Preliminary Assessment\\ of Cognitive Capital Impact on National Innovation Dynamics}\\[5mm]
+    {\large Evoluit-M }\\
+    {\large Independent Theoretical Research Evoluism Initiative}\\[2mm]
+    {\normalsize November 18, 2025}\\[2mm]
+    {\normalsize\href{https://doi.org/10.5281/zenodo.17635565}{DOI: 10.5281/zenodo.17635565}}
+\end{center}
+\vspace{15mm}
+\begin{abstract}
+Using an empirically estimated elasticity $\beta \approx 0.69$ (95\% CI: 0.62--0.78) from a panel of 85 countries over 2001--2024 ($n \approx 2,040$; DOI: \href{https://doi.org/10.5281/zenodo.17454336}{10.5281/zenodo.17454336}), we present the Cognitive Capital Multiplier (CCM) — a deliberately simple, fully open-source scenario tool designed exclusively for exploratory ``what-if'' analysis by policymakers and analysts.
+
+The calculator combines a quality-adjusted measure of cognitive capital with the log-linear regression result to produce transparent, bounded estimates of potential long-term innovation growth. All assumptions and limitations are stated explicitly.
+\end{abstract}
+
+\section{Introduction}
+Numerous economies in the late 20th and early 21st centuries — Singapore, South Korea, Israel, Estonia, Finland — exhibited sharp accelerations in patenting and high-technology exports only after reaching high levels of educational attainment and quality. A recent panel study of 85 countries over 2001--2024 confirmed a robust and statistically significant elasticity of innovation output with respect to cognitive capital of approximately 0.69 in natural logs.
+
+The purpose of this paper is to transform that empirical finding into a transparent, mathematically consistent, and deliberately simplified scenario calculator that can be used by government officials, think-tank analysts, and researchers without specialised econometric training.
+
+
+\section{Cognitive Capital Metric}
+We construct a composite index of cognitive capital that uses exactly the same data and methodology as the underlying panel regression while remaining simple enough for scenario analysis. Two variants are provided, both standardised in standard deviations from the 2024 global mean:
+
+
+
+
+
+\begin{itemize}
+    \item \textbf{Basic metric} ($C_{\text{basic}}$) = $0.6 \times$ (mean years of schooling) + $0.4 \times$ (tertiary attainment rate, ages 25--64).
+    \item \textbf{Quality-adjusted metric} (recommended) $C_{\text{quality}} = C_{\text{basic}} \times \bigl(1 + 0.004 \times (\text{average PISA score} - 490)\bigr)$.
+\end{itemize}
+
+The 0.6/0.4 weights were subjected to sensitivity analysis in the range 0.5--0.7/0.3--0.5; the resulting elasticity $\beta$ changes by less than $\pm 0.03$ — well within the confidence interval of the original estimate.
+
+\section{Empirical Foundation}
+The core relationship was estimated via dynamic panel techniques on annual data for 85 countries (2001--2024):
+
+\begin{equation}
+\ln(\text{Innovation}_t) = \cdots + \beta \cdot C_{t-5\dots-8} + \text{country \& year FE} + \text{controls} + \varepsilon_t
+\end{equation}
+
+yielding $\beta \approx 0.69$ (95\% CI: 0.62--0.78), robust to mixed-effects models, Newey-West standard errors, and Arellano-Bond GMM estimation. While the correlation is strong and survives extensive controls, it remains a controlled correlation rather than proven causation.
+
+\section{CCM Formula}
+The only mathematically consistent long-run extrapolation from a log-linear specification is the exponential form:
+
+\begin{equation}
+\text{Innovation}_{2040} \approx \text{Innovation}_{2024} \times \exp(\beta \times \Delta C)
+\end{equation}
+
+With $\beta = 0.69$, a sustained +1\,SD increase in quality-adjusted cognitive capital is associated with an approximate doubling of innovation output after the historical 5--8-year lag (95\% CI: 1.86--2.19$\times$).
+
+
+\section{Open-Source Toolkit}
+The complete package is publicly available under permissive licences:
+
+\begin{itemize}
+    \item Repository (this exact version): \\
+      \url{https://github.com/Evoluit-M/Evoluism-S/tree/ccm-v1.0}
+    \item Interactive online calculator: \\
+      \url{https://cognitive-capital-multiplier.streamlit.app} (live as of 18 November 2025)
+    \item Permanent archive with DOI: \\
+      \href{https://doi.org/10.5281/zenodo.17635565}{https://doi.org/10.5281/zenodo.17635565}
+    \item Licence: MIT (code) + CC-BY-4.0 (text and data)
+\end{itemize}
+
+
+\section{Illustrative Country Scenarios 2024--2040}
+Table 1 shows what the corrected exponential formula implies for selected countries under an ambitious but historically precedented trajectory of +1.2\,SD over 16 years, alongside more realistic Japanese and Brazilian cases.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{5.2pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Country & $C_{\text{quality}}$ 2024 & Ambitious $\Delta C$ & Expected multiplier & Patents 2040 & High-tech export 2040 \\
+ & (SD) & (16 years) & (95\% CI) & (× baseline) & (bn USD, approx.) \\
+\midrule
+United States & +2.05 & +1.20 & 2.00× (1.86--2.19) & $\approx 2\times$ & 1\,800--2\,000 \\
+Israel        & +2.18 & +1.20 & 2.00× & $\approx 2\times$ & 360--400 \\
+UAE           & +0.75 & +1.20 & 2.00× & $\approx 2\times$ & 410--450 \\
+Singapore     & +2.70 & +1.20 & 2.00× & $\approx 2\times$ & 1\,200--1\,300 \\
+South Korea   & +2.55 & +1.20 & 2.00× & $\approx 2\times$ & 1\,300--1\,400 \\
+Estonia       & +1.95 & +1.20 & 2.00× & $\approx 2\times$ & 90--100 \\
+Japan (realistic) & +2.65 & +0.40 & 1.32× & $\approx 1.3\times$ & 900--1\,000 \\
+Brazil (realistic) & +0.55 & +1.00 & 1.99× & $\approx 2\times$ & 280--310 \\
+\bottomrule
+\end{tabular}
+\caption{Illustrative scenarios using the mathematically correct $\exp(\beta \Delta C)$ form.}
+\end{table}
+
+\section{Policy Illustrations (15-year horizon)}
+Table 2 presents four policy levers that have repeatedly delivered substantial cognitive-capital gains in real-world settings, together with rough cost estimates and country examples.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\RaggedRight}p{6.9cm}>{\centering}p{2.6cm}>{\centering}p{2.2cm}>{\centering\arraybackslash}p{2.3cm}@{}}
+\toprule
+Policy & Expected $\Delta C_{\text{quality}}$ & Approx.\ annual cost (bn USD) & Feasibility examples \\
+\midrule
+Attract 80--120\,000 highly educated immigrants per year & +0.3--0.5\,SD & 2--4 & UAE, Canada, Singapore \\[6pt]
+Increase tertiary attainment by 15 percentage points & +0.3--0.4\,SD & 0.5--1 & Medium (demography-dependent) \\[6pt]
+Reallocate education spending toward STEM and critical thinking & +0.2--0.3\,SD & $\approx 0$ (reallocation) & Estonia, Finland \\[6pt]
+Create special zones with research and tax autonomy & +0.1--0.2\,SD & 0.1--0.2 & Context-dependent \\
+\bottomrule
+\end{tabular}
+\caption{Indicative policy levers and their historical contribution to cognitive capital growth.}
+\end{table}
+
+\section{Limitations}
+The tool intentionally trades sophistication for transparency and accessibility. Key limitations are:
+
+\begin{enumerate}
+    \item Highly simplified cognitive capital metric with tested but ultimately arbitrary weights.
+    \item Correlation rather than proven causation; risk of endogeneity and omitted-variable bias.
+    \item Assumption of constant elasticity over long horizons, ignoring possible saturation effects and major shocks.
+    \item No explicit modelling of R\&D expenditure, institutional quality, culture, or geopolitics.
+    \item Selective country examples (partially mitigated by contrasting cases).
+\end{enumerate}
+
+\section{Conclusion}
+The Cognitive Capital Multiplier is not a forecast and makes no claim to precision. It is a transparent, open, and rigorously bounded scenario instrument intended to help policymakers and analysts quickly understand the potential scale of innovation gains from sustained investment in human capital — and to serve as a starting point for more detailed modelling. Contributions, extensions, and constructive criticism are warmly welcomed.
+
+
+
+\section{Acknowledgements}
+This work builds on open data from WIPO, OECD, UNESCO, World Bank, PISA programmes, and the panel regression published under DOI: 10.5281/zenodo.17454336.
+
+Permanent archive and reproducible version (code, data, LaTeX source, calculator):\\
+\href{https://doi.org/10.5281/zenodo.17635565}{https://doi.org/10.5281/zenodo.17635565}\\
+Repository (this exact version): \url{https://github.com/Evoluit-M/Evoluism-S/tree/ccm-v1.0}
+
+
+\begin{thebibliography}{5}
+\bibitem{hanushek2015} Hanushek, E. A., \& Woessmann, L. (2015). \emph{The Knowledge Capital of Nations}. MIT Press.
+\bibitem{jones2016} Jones, C. I. (2016). The Facts of Economic Growth. \emph{Handbook of Macroeconomics}, Vol. 2.
+\bibitem{squicciarini2015} Squicciarini, M. P., \& Voigtländer, N. (2015). Human Capital and Industrialization. \emph{QJE}, 130(4).
+\bibitem{romer1990} Romer, P. M. (1990). Endogenous Technological Change. \emph{JPE}, 98(5).
+\bibitem{becker1964} Becker, G. S. (1964). \emph{Human Capital}. NBER.
+\end{thebibliography}
+
+\end{document}
