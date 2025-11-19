@@ -259,9 +259,6 @@ def main():
 
     df_out = pd.DataFrame(rows)
 
-
-    df_out = pd.DataFrame(rows)
-
     def highlight(row_):
         # very soft highlight for the selected country
         color = "background-color: rgba(255, 255, 150, 0.12)"
@@ -307,7 +304,4 @@ For full reproducibility, please refer to the GitHub repository and Zenodo archi
 
 if __name__ == "__main__":
     main()
-                "Country": r["country"],
-                "Multiplier": m,
-                "Exports_2024_bn": r["baseline_hitech_exports_2024_bn"],
 
