@@ -244,14 +244,23 @@ def main():
     # Build comparison table (using the same ΔC for all countries)
     rows = []
     for _, r in df.iterrows():
+        # use the global delta_c slider value for all countries
         m = innovation_multiplier(beta, delta_c)
         exports_2040 = r["baseline_hitech_exports_2024_bn"] * m
 
         rows.append(
             {
+                "Country": r["country"],
+                "C_quality_2024_SD": r["C_quality_2024_SD"],
+                "Delta_C_2024_2040_SD": delta_c,
+                "Multiplier": m,
+                "Exports_2024_bn": r["baseline_hitech_exports_2024_bn"],
                 "Exports_2040_bn": exports_2040,
             }
         )
+
+    df_out = pd.DataFrame(rows)
+
 
     df_out = pd.DataFrame(rows)
 
