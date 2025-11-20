@@ -3,6 +3,10 @@ import pandas as pd
 import numpy as np
 import statsmodels.api as sm
 
+# If you later have a real logo URL (e.g. from GitHub raw),
+# put it here instead of None.
+LOGO_URL = None  # e.g. "https://raw.githubusercontent.com/Evoluit-M/evoluism-s/main/docs/evoluitm_logo.png"
+
 
 def load_series(file, label: str):
     """
@@ -84,6 +88,31 @@ def main():
         layout="wide",
     )
 
+    # ----- SIDEBAR: logo and Evoluit-M info -----
+    with st.sidebar:
+        if LOGO_URL:
+            st.image(LOGO_URL, use_column_width=True)
+
+        st.markdown("### Evoluit-M")
+        st.markdown(
+            "Independent Theoretical Research Evoluism Initiative\n\n"
+            "This app is part of a methodological series on how trends in "
+            "cross-disciplinary aggregate data can mislead standard regression tools."
+        )
+
+        st.markdown("---")
+        st.markdown("#### Related Evoluism tools")
+
+        st.markdown(
+            "- **CCM calculator (Streamlit)**  \n"
+            "  https://evoluism-s-3e6mxru8s7hweqs3vl4leg.streamlit.app\n"
+            "- **CCM paper (cognitive capital and innovation)**  \n"
+            "  DOI: 10.5281/zenodo.17635565\n"
+            "- **Evoluism panel study (85 countries, 2001–2024)**  \n"
+            "  DOI: 10.5281/zenodo.17454336"
+        )
+
+    # ----- MAIN TITLE AND INTRO -----
     st.title("Trends Collide: Spurious Regression Risk Score")
 
     st.markdown(
@@ -103,12 +132,13 @@ The tool stress-tests regressions between aggregate indicators using:
 - R²,
 - Durbin–Watson statistic,
 - Newey–West robust p-values,
-- and a combined 0-100% Spurious Regression Risk Score.
+- and a combined 0-100 percent Spurious Regression Risk Score.
 """
     )
 
     st.markdown("---")
 
+    # ----- QUICK GUIDE -----
     with st.expander("Quick guide – how to use this tool", expanded=True):
         st.markdown(
             """
@@ -128,15 +158,16 @@ Each CSV must contain at least one numeric column.
 
 Format example:
 
-Year,Variable
-2001, 1.2
-2002, 1.4
+Year,Variable  
+2001, 1.2  
+2002, 1.4  
 ...
 """
         )
 
     st.markdown("---")
 
+    # ----- DATA SOURCE SECTION -----
     st.subheader("Choose data source")
 
     use_demo = st.checkbox(
@@ -147,6 +178,7 @@ Year,Variable
     if use_demo:
         df_y, df_x = generate_demo_data()
         st.markdown("### Demo data (independent trending series)")
+        st.markdown("First 10 rows of each series:")
         st.dataframe(df_y.head(10))
         st.dataframe(df_x.head(10))
 
@@ -173,6 +205,7 @@ Year,Variable
         y, y_label = load_series(file_y, "Y")
         x, x_label = load_series(file_x, "X")
 
+    # ----- REGRESSION DIAGNOSTICS -----
     st.markdown("---")
     st.subheader("Regression diagnostics")
 
@@ -189,17 +222,18 @@ Year,Variable
 
     st.markdown(
         f"""
-## Spurious Regression Risk Score: {score:.1f}%
+## Spurious Regression Risk Score: {score:.1f} percent
 
 Interpretation:
 
-- 80-100% → almost certainly spurious
-- 60-80% → highly suspicious
-- 40-60% → ambiguous, depends on domain
-- 0-40%  → relatively safer
+- 80–100 percent  → almost certainly spurious  
+- 60–80 percent   → highly suspicious  
+- 40–60 percent   → ambiguous, depends on domain  
+- 0–40 percent    → relatively safer  
 """
     )
 
+    # ----- VISUALISATION -----
     st.markdown("---")
     st.subheader("Visualisation")
 
@@ -209,15 +243,25 @@ Interpretation:
     st.markdown(f"X series ({x_label})")
     st.line_chart(pd.DataFrame({"X": x}))
 
+    # ----- ABOUT / EVOLUISM BLOCK -----
     st.markdown("---")
+    st.subheader("About this app and the Evoluism project")
+
     st.markdown(
         """
-Reference:
+This app accompanies the teaching note:
 
-An Interactive Teaching Note on Spurious Regressions in Cross-Disciplinary Aggregate Data  
-DOI: https://doi.org/10.5281/zenodo.17600820
+- *An Interactive Teaching Note on Spurious Regressions in Cross-Disciplinary Aggregate Data*  
+  DOI: https://doi.org/10.5281/zenodo.17600820
 
-This app is part of the Evoluism theoretical-methods series.
+It is part of the broader **Evoluism** initiative, which studies how
+cognitive, institutional and technological factors co-evolve over time
+and how naive statistical tools can misinterpret long-run trend data.
+
+The goal of this app is not to provide a full econometric workflow, but
+to serve as a transparent stress-test and an educational tool, showing
+how easy it is to obtain impressive but fragile relationships when
+trends collide.
 """
     )
 
