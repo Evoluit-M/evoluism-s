@@ -1,17 +1,20 @@
-# LaTeX временные файлы
+# === Heavy raw / processed data (not needed for the paper branch) ===
+data/raw/
+data/raw_psi_latent/
+data/smi_raw/
+data/smi_external/
+data/processed/global_panel.parquet
+data/processed_psi_latent/
+data/processed_smi/
+outputs/
+results/*.parquet
+results/*.feather
+
+# LaTeX build artifacts
 *.aux
 *.log
-*.synctex.gz
-*.toc
 *.out
-*.fls
-*.fdb_latexmk
-
-# Тестовые папки
-paper/
-.github/
-
-# Временные файлы
-*test*
-*draft*
-*.tmp
+*.toc
+*.bbl
+*.blg
+*.synctex.gz

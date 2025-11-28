@@ -1,21 +1,38 @@
-# ψ vs ECI (2025): Comparative Predictive Performance Study
+# ψ vs ECI Paper
 
-This directory contains the full scientific article, LaTeX source, regression
-tables, reproducibility instructions, and generated figures for the paper:
+This folder contains the reproducible workflow for the paper:
 
-**“ψ vs ECI: Cognitive–Institutional Complexity vs. Export Complexity as Predictors of Long-Run Economic Growth (2000–2024)”**
+**“ψ vs ECI: A Comparative Analysis of Cognitive–Institutional Complexity and Export Complexity as Predictors of Long-Run Growth (2000–2024)”**
 
-## Contents
-- `latex/main.tex` — full LaTeX source
-- `latex/refs.bib` — bibliography
-- `figures/` — regression/visualization figures
-- `pdf/psi_vs_eci_v1.pdf` — compiled paper (version 1.0)
+## Structure
 
-## Citation
-If you use this work, please cite the Zenodo DOI (coming soon).
+- `main_psi_vs_eci.tex` — main LaTeX file of the paper  
+- `sections/` — logical split of the text:
+  - `01_intro.tex`
+  - `02_data_methods.tex`
+  - `03_results.tex`
+  - `04_robustness.tex`
+  - `05_discussion.tex`
+  - `06_conclusion.tex`
+- `figures/` — all figures used in the paper (Figures 1–5)
+- `tables/` — LaTeX tables (main regressions, robustness checks)
+- `refs.bib` — bibliography for ψ vs ECI paper
+- `Makefile` or `build.sh` (optional) — helper script to compile the paper
 
 ## Reproducibility
-All data & code for ψ, ECI, 10-year panels, and regressions are in:
-`/smi-v1.1/src` and `/smi-v1.1/results`.
 
-This paper builds directly on the reproducible pipeline in this repository.
+The analysis is fully reproducible from the main Evoluism-S pipeline.  
+Key steps:
+
+```bash
+# build ψ–ECI growth panel
+python src/C_econ/build_growth_panel_psi_eci_10y_v2_3.py
+
+# main regressions
+python src/C_econ/run_psi_vs_eci_regressions_10y_v2_3.py
+
+# robustness checks
+python src/C_econ/run_robustness_psi_eci_v3_0.py
+
+# (optional) figures
+python analysis/plot_psi_eci_figures.py
