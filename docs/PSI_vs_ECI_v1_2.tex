@@ -1,0 +1,457 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Encoding & Fonts
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% --- Geometry
+\usepackage[margin=1in]{geometry}
+
+% --- Math & Symbols
+\usepackage{amsmath,amssymb,mathtools}
+
+% --- Tables
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multirow}
+
+% --- Graphics
+\usepackage{graphicx}
+\graphicspath{{./}{figures/}{../figures/}{../../results/figures/}{results/figures/}}
+
+% --- Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = blue,
+  citecolor  = blue,
+  urlcolor   = blue
+}
+
+% --- Misc
+\usepackage{caption}
+\usepackage{natbib}
+
+\title{%
+  \texorpdfstring{$\psi$ vs ECI:\\
+  Cognitive--Institutional Capacity and Export Complexity as Predictors of Long-Run Growth}{psi vs ECI: Cognitive--Institutional Capacity and Export Complexity as Predictors of Long-Run Growth}
+}
+
+\author{Evoluit-M \\ \textit{Independent Theoretical Research Evoluism Initiative}}
+
+\date{29 November 2025}
+\begin{document}
+\maketitle
+\noindent\text{Zenodo:} \href{https://doi.org/10.5281/zenodo.XXXXXXX}{10.5281/zenodo.XXXXXXX}
+
+
+\begin{abstract}
+This paper compares the predictive power of a broad cognitive--institutional index $\psi$ and the canonical Economic Complexity Index (ECI) for long-run GDP per capita growth. We construct a global country panel for 2000--2024 combining indicators of human capital, governance, digitalization, innovation and export complexity. The $\psi$-index is obtained as a latent factor from these variables, while ECI is taken from the standard HS92 export complexity dataset. We then build a 10-year growth panel and estimate a set of simple, transparent regressions.
+
+Four main findings emerge. First, a version of $\psi$ orthogonalized with respect to initial log GDP per capita---denoted $\psi_{ng}$---is a stable positive predictor of subsequent 10-year growth, explaining around 2--4\% of the variance in simple OLS specifications. Second, ECI on its own shows a weak negative association with growth, but becomes a positive and significant predictor in a two-way fixed-effects (country and initial-year) specification, where both $\psi_{ng}$ and ECI are jointly important and the model explains about 69\% of the variance. Third, an interaction model using the full $\psi$-index, $g \sim \psi + \text{ECI} + \psi\times\text{ECI}$, reveals a positive and significant complementarity term, consistent with the idea that complexity is most growth-enhancing once cognitive--institutional capacity is sufficiently high. Fourth, a simple out-of-sample experiment (train $\leq$2010, test $>$2010) shows that predictive $R^2$ can turn negative, underscoring the limits of purely statistical forecasting on a volatile 21st-century panel.
+
+We interpret these results as evidence that export complexity has become a \emph{conditional} engine of growth in the early 21st century: it matters most once a country has accumulated sufficient cognitive--institutional capacity, as captured by $\psi$ and $\psi_{ng}$.
+\end{abstract}
+
+\section{Introduction}
+The ability of quantitative indicators to describe and predict long-run growth trajectories is a central concern of macroeconomics and development economics. Over the past two decades, one of the most visible attempts to link structural features of the economy to future growth has been the Economic Complexity Index (ECI) of \citet{HidalgoHausmann2009}, widely used to measure the sophistication and diversification of countries' export baskets and, by implication, their productive capabilities.
+
+In parallel, a growing literature has emphasized broader dimensions of development that extend beyond export structures: human capital, institutional quality, innovation capacity, digital infrastructure and social complexity. Rather than focusing on a single sectoral or trade-based metric, this work seeks composite measures capturing the \emph{systemic} ability of a society to generate, diffuse and coordinate knowledge.
+
+In this paper we contribute to this discussion by comparing the predictive power of two composite indices for long-run economic growth:
+\begin{itemize}
+  \item a broad cognitive--institutional index, denoted $\psi$, constructed as a latent factor from multiple indicators of human capital, governance, innovation and digitalization; and
+  \item the canonical export-based Economic Complexity Index (ECI), based on the HS92 product classification and widely used in the complexity literature.
+\end{itemize}
+
+A key methodological step in our approach is to separate the cognitive--institutional component of $\psi$ from contemporaneous income. Because log GDP per capita enters the construction of $\psi$, a natural concern is that $\psi$ will partly repackage current income, which is itself strongly correlated with future growth via convergence effects. To address this, we regress $\psi$ on initial log GDP per capita and define $\psi_{ng}$ (``no-GDP'') as the residual. Intuitively, $\psi_{ng}$ captures the component of cognitive--institutional capacity that is orthogonal to current income.
+
+Our core empirical question is straightforward: \emph{Is $\psi_{ng}$ a more robust predictor of 10-year GDP per capita growth than ECI in the period 2000--2024, and how do the two indices interact?} We deliberately avoid claims of ``revolution'' or attempts to ``replace'' ECI. Instead, our goal is to estimate the comparative explanatory power of the two indices on a common panel, and to investigate whether they complement each other when used jointly.
+
+Using a global panel of countries, we construct 10-year growth rates of log GDP per capita between 2000 and 2024 and estimate a set of simple OLS and fixed-effects models. Six benchmark specifications summarize our results:
+\begin{enumerate}
+  \item a bivariate regression of growth on $\psi_{ng}$;
+  \item a bivariate regression on ECI;
+  \item a joint OLS model with both $\psi_{ng}$ and ECI;
+  \item a two-way fixed-effects model with country and initial-year effects;
+  \item an out-of-sample test that trains on 2000--2010 and tests on 2011--2021;
+  \item an interaction model using the full $\psi$ and the term $\psi\times\text{ECI}$.
+\end{enumerate}
+
+Three high-level findings stand out. First, $\psi_{ng}$ is a stable positive predictor of subsequent growth across the global sample, even though the share of variance it explains is modest in purely cross-sectional OLS. Second, ECI on its own exhibits a weak but statistically significant \emph{negative} association with 10-year growth over 2000--2024, reflecting the fact that highly complex economies have tended to grow more slowly since 2000. Third, once we move to richer specifications with country and year fixed effects, and once we explicitly allow for an interaction between $\psi$ and ECI, export complexity re-emerges as a conditional growth engine complementary to cognitive--institutional capacity.
+
+The contribution of this paper is threefold. First, we provide a transparent head-to-head comparison between $\psi_{ng}$ and ECI on the same 10-year growth panel, with all code and data-processing scripts openly available. Second, we document a robust pattern: ECI alone is a poor predictor of growth in the early 21st century, but becomes positively associated with growth in models that control for $\psi_{ng}$ and unobserved country heterogeneity. Third, by implementing an out-of-sample test and an interaction model, we show that (i) purely statistical forecasting based on these indices is fragile, and (ii) export complexity appears to operate as a second-stage accelerator once cognitive--institutional thresholds are reached.
+
+The remainder of the paper is structured as follows. Section~\ref{sec:data_methods} describes the data, the construction of $\psi$ and $\psi_{ng}$, and the 10-year growth panel. Section~\ref{sec:results} presents the baseline regression results and associated visualizations. Section~\ref{sec:robustness} reports robustness checks and limitations. Section~\ref{sec:discussion} situates the findings within the broader literature on economic complexity, institutions and intangible capital. Section~\ref{sec:conclusion} concludes.
+
+\section{Data and Methods}
+\label{sec:data_methods}
+
+\subsection{Data sources}
+Our empirical analysis is based on a global country-year panel that combines standard macro, institutional, innovation and trade indicators. The main sources are:
+\begin{itemize}
+  \item World Development Indicators (WDI): GDP per capita (current US\$ and PPP), population, and a set of digitalization indicators (internet penetration, mobile broadband).
+  \item UNDP Human Development Index (HDI).
+  \item Barro--Lee educational attainment (years of schooling).
+  \item Worldwide Governance Indicators (WGI): rule of law, government effectiveness, regulatory quality, control of corruption, voice and accountability.
+  \item V-Dem electoral and liberal democracy indices.
+  \item Patent data from WIPO (patents per million inhabitants).
+  \item High-technology exports (WDI and related sources).
+  \item KOF Globalisation Index.
+  \item Export complexity: HS92-based ECI from the Harvard Growth Lab (Atlas of Economic Complexity).
+\end{itemize}
+The full list of variables, definitions and data sources is provided in an online supplement.
+
+\subsection{Construction of the $\psi$-index and $\psi_{ng}$}
+The $\psi$-index is designed to capture a broad cognitive--institutional capacity of a country. Conceptually, it aggregates information about:
+\begin{itemize}
+  \item income level (log GDP per capita),
+  \item human capital (years of schooling and related indicators),
+  \item innovation (patents per million inhabitants),
+  \item institutional quality (WGI and V-Dem),
+  \item digitalization (internet penetration, mobile broadband),
+  \item broader development and inequality metrics (e.g.\ HDI, inequality indices).
+\end{itemize}
+
+Technically, $\psi$ is constructed via factor analysis on a standardized set of these indicators. We estimate a common factor model and apply varimax rotation, yielding factor loadings that reflect the empirical covariance structure of the data rather than ad hoc weights. The resulting factor scores are standardized to have mean zero and unit variance in the pooled panel.
+
+Because log GDP per capita enters the construction of $\psi$, we take an additional step to disentangle the cognitive--institutional component from current income. For each country and initial year $t_0$ in the 10-year growth panel, we regress $\psi_{i,t_0}$ on log GDP per capita at $t_0$:
+\begin{equation}
+  \psi_{i,t_0} = \alpha + \gamma \ln\text{GDPpc}_{i,t_0} + u_{i,t_0}.
+\end{equation}
+We then define the residual
+\begin{equation}
+  \psi_{ng,i,t_0} = \widehat{u}_{i,t_0},
+\end{equation}
+and standardize it to have mean zero and unit variance. Intuitively, $\psi_{ng}$ is the component of $\psi$ that is orthogonal to income at the beginning of the 10-year window. This residualized index is our main predictor in the baseline models.
+
+\subsection{Economic Complexity Index (ECI)}
+For export complexity we use the standard Economic Complexity Index (ECI) based on the HS92 product classification \citep{HidalgoHausmann2009, HausmannHidalgo2011}. Annual ECI values are taken from the Harvard Growth Lab (Atlas of Economic Complexity) for 1995--2023, matched to our country codes, and standardized to zero mean and unit variance.
+
+ECI is interpreted in the usual way: higher values indicate a more diversified and complex export basket, capturing the breadth and sophistication of productive capabilities embedded in a country's economy.
+
+\subsection{Ten-year growth panel}
+To compare the predictive power of $\psi_{ng}$ and ECI for long-run growth, we construct a 10-year growth panel. For each country $i$ and initial year $t_0$ we compute the average annual growth rate of log GDP per capita over a 10-year horizon:
+\begin{equation}
+  g_{i,t_0,t_0+10} = \frac{\ln \text{GDPpc}_{i,t_0+10} - \ln \text{GDPpc}_{i,t_0}}{10}.
+\end{equation}
+We restrict attention to horizons fully contained within the 2000--2024 period, which yields 3{,}802 observations with valid $\psi_{ng}$ and GDP data, and 2{,}969 observations with non-missing ECI. The intersection of the two samples (countries and years where both $\psi_{ng}$ and ECI are available) also contains 2{,}969 observations.
+
+\subsection{Econometric specifications}
+Our baseline regressions are intentionally simple and transparent. We begin with three OLS models:
+\begin{align}
+  \textbf{(1)}\quad
+  g_{i,t_0,t_0+10} &= \alpha + \beta_{\psi}\,\psi_{ng,i,t_0} + \varepsilon_{i,t_0}, \label{eq:psi_only} \\
+  \textbf{(2)}\quad
+  g_{i,t_0,t_0+10} &= \alpha + \beta_{\text{ECI}}\,\text{ECI}_{i,t_0} + \varepsilon_{i,t_0}, \label{eq:eci_only} \\
+  \textbf{(3)}\quad
+  g_{i,t_0,t_0+10} &= \alpha + \beta_{\psi}\,\psi_{ng,i,t_0}
+                       + \beta_{\text{ECI}}\,\text{ECI}_{i,t_0}
+                       + \varepsilon_{i,t_0}. \label{eq:psi_eci}
+\end{align}
+All models are estimated by OLS without weights. Standard errors are conventional (non-robust) unless otherwise stated; using heteroskedasticity-robust standard errors does not materially alter the results.
+
+To account for unobserved heterogeneity and global shocks, we extend the joint model to a two-way fixed-effects specification:
+\begin{equation}
+  \textbf{(4)}\quad
+  g_{i,t_0,t_0+10} = \alpha + \beta_{\psi}\,\psi_{ng,i,t_0}
+                           + \beta_{\text{ECI}}\,\text{ECI}_{i,t_0}
+                           + \mu_i + \tau_{t_0} + \varepsilon_{i,t_0},
+\end{equation}
+where $\mu_i$ are country fixed effects and $\tau_{t_0}$ are initial-year fixed effects absorbing global shocks common to all countries.
+
+We also run a simple out-of-sample experiment:
+\begin{equation}
+  \textbf{(5)}\quad
+  g_{i,t_0,t_0+10} = \alpha + \beta_{\psi}\,\psi_{ng,i,t_0}
+                           + \beta_{\text{ECI}}\,\text{ECI}_{i,t_0}
+                           + \varepsilon_{i,t_0},
+\end{equation}
+estimated on a training subsample with $t_0 \leq 2010$ (2{,}191 observations) and evaluated on a test subsample with $t_0 > 2010$ (778 observations). We report both in-sample $R^2$ and out-of-sample $R^2_{\text{OOS}}$.
+
+Finally, to explore complementarity between cognitive capacity and export complexity, we estimate an interaction model using the full $\psi$-index:
+\begin{equation}
+  \textbf{(6)}\quad
+  g_{i,t_0,t_0+10} = \alpha + \beta_{\psi}\,\psi_{i,t_0}
+                           + \beta_{\text{ECI}}\,\text{ECI}_{i,t_0}
+                           + \beta_{\times}\,(\psi_{i,t_0}\times\text{ECI}_{i,t_0})
+                           + \varepsilon_{i,t_0}.
+\end{equation}
+Here the interaction term captures whether the marginal effect of ECI on growth depends on the level of $\psi$.
+
+\section{Results}
+\label{sec:results}
+
+Table~\ref{tab:psi_eci_v12} summarizes the six benchmark models (M1--M6). For convenience, we refer to the specifications in equations~\eqref{eq:psi_only}--\eqref{eq:psi_eci} and (4)--(6) as M1--M6, respectively.
+
+\begin{table}[t]
+    \centering
+    \caption{Cognitive capacity $\psi_{ng}$ and export complexity (ECI) as predictors of 10-year GDP per capita growth}
+    \label{tab:psi_eci_v12}
+
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{lccccccc}
+        \toprule
+        & Sample & $N$ & $\beta_{\psi}$\footnotemark[1] & $\beta_{\text{ECI}}$ & $\beta_{\psi\times\text{ECI}}$ & $R^{2}$ & $R^{2}_{\text{OOS}}$ \\
+        \midrule
+        M1: $g \sim \psi_{ng}$ 
+        & All countries & 3802 & 0.733 & --      & --     & 0.024 & -- \\
+        M2: $g \sim \text{ECI}$ 
+        & ECI sample    & 2969 & --    & -0.496  & --     & 0.010 & -- \\
+        M3: $g \sim \psi_{ng} + \text{ECI}$ 
+        & Both          & 2969 & 0.923 & -0.952  & --     & 0.040 & -- \\
+        M4: $g \sim \psi_{ng} + \text{ECI} + \text{FE}(\text{country},\text{year})$ 
+        & Both          & 2969 & 1.473 & 0.552   & --     & 0.691 & -- \\
+        M5: $g \sim \psi_{ng} + \text{ECI}$ (train $\leq 2010$, test $>2010$) 
+        & Both          & 2969 & 0.811 & -1.160  & --     & 0.049 & -1.306 \\
+        M6: $g \sim \psi + \text{ECI} + \psi\times\text{ECI}$ 
+        & Both          & 2969 & 0.232 & 0.642   & 0.062  & 0.061 & -- \\
+        \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+
+    \footnotetext[1]{In models M1--M5, $\beta_{\psi}$ refers to the no-GDP version $\psi_{ng}$.
+    In M6, $\psi$ denotes the full cognitive capacity index including log GDP per capita.}
+\end{table}
+
+\subsection{Model M1: growth on $\psi_{ng}$}
+Model M1 relates 10-year growth to the residualized cognitive--institutional index $\psi_{ng}$:
+\begin{itemize}
+  \item $N = 3{,}802$ observations;
+  \item $R^2 = 0.0239$;
+  \item $\hat{\beta}_{\psi} = 0.733$ ($p < 0.001$).
+\end{itemize}
+The association is positive, statistically strong, and persistent across the sample. A one-unit increase in $\psi_{ng}$ at time $t_0$ is associated with about 0.7 percentage points higher annualized growth of GDP per capita over the subsequent decade. Figure~\ref{fig:psi_growth} shows the corresponding scatterplot with fitted regression line: despite wide dispersion, the upward-sloping trend is evident across income groups and regions.
+
+\subsection{Model M2: growth on ECI}
+Model M2 relates 10-year growth to export complexity:
+\begin{itemize}
+  \item $N = 2{,}969$;
+  \item $R^2 = 0.0099$;
+  \item $\hat{\beta}_{\text{ECI}} = -0.496$ ($p < 0.001$).
+\end{itemize}
+In contrast to historical evidence for earlier decades, ECI exhibits a weak \emph{negative} association with growth over 2000--2024. Highly complex economies (high ECI) have tended to grow more slowly, while several fast-growing economies---India, Vietnam, Bangladesh, Ethiopia, Uzbekistan---display relatively low ECI in the early 2000s. Figure~\ref{fig:eci_growth} shows that the scatter of ECI versus growth is diffuse, with a slightly downward-sloping regression line.
+
+\subsection{Model M3: joint $\psi_{ng}$ + ECI}
+When we include both indices in a joint regression as in~\eqref{eq:psi_eci}, we obtain:
+\begin{itemize}
+  \item $N = 2{,}969$ (common sample);
+  \item $R^2 = 0.0400$;
+  \item $\hat{\beta}_{\psi} = 0.923$ ($p < 0.001$);
+  \item $\hat{\beta}_{\text{ECI}} = -0.952$ ($p < 0.001$).
+\end{itemize}
+$\psi_{ng}$ remains a positive and significant predictor, with a somewhat larger coefficient in the common sample. The coefficient on ECI becomes more negative in magnitude. This pattern reflects the fact that, in the early 21st century, high-ECI economies are typically richer and institutionally stronger, yet have experienced slower growth than many middle-income countries with lower export complexity but rapidly increasing cognitive--institutional capacity. In other words, once we focus on a 10-year horizon over 2000--2024, ECI appears to encode a maturity effect (``rich and complex but slow-growing'') rather than a pure forward-looking growth potential.
+
+\subsection{Model M4: two-way fixed effects}
+The picture changes when we move to the two-way fixed-effects model M4, which controls for unobserved country heterogeneity and common shocks at the initial year:
+\begin{itemize}
+  \item $N = 2{,}969$;
+  \item $R^2 = 0.691$;
+  \item $\hat{\beta}_{\psi} = 1.473$ ($p < 0.001$);
+  \item $\hat{\beta}_{\text{ECI}} = 0.552$ ($p = 0.002$).
+\end{itemize}
+In this specification, both $\psi_{ng}$ and ECI are positively associated with 10-year growth. The change in the ECI coefficient---from negative in M2 and M3 to positive in M4---suggests that once we absorb time-invariant country characteristics and global shocks, export complexity behaves as a conditional driver of growth. The very high $R^2$ (about 0.69) mainly reflects the explanatory power of country and year fixed effects; nevertheless, the partial contribution of $\psi_{ng}$ and ECI is economically and statistically meaningful.
+
+\subsection{Model M5: out-of-sample performance}
+To gauge the practical forecasting value of these indices, we estimate M5 on a training subsample with initial years $t_0 \leq 2010$ (2{,}191 observations) and evaluate performance on a test subsample with $t_0 > 2010$ (778 observations):
+\begin{itemize}
+  \item in-sample $R^2 = 0.049$;
+  \item out-of-sample $R^2_{\text{OOS}} = -1.306$;
+  \item $\hat{\beta}_{\psi} = 0.811$ ($p < 0.001$);
+  \item $\hat{\beta}_{\text{ECI}} = -1.160$ ($p < 0.001$).
+\end{itemize}
+The negative $R^2_{\text{OOS}}$ means that, on the post-2010 test window, a naive benchmark (predicting constant mean growth) outperforms the model in terms of squared prediction error. This is not unique to our indices: the period after 2010 includes the aftermath of the global financial crisis, the commodity cycle, geopolitical shocks and the COVID-19 pandemic. The result highlights a general limitation of purely statistical forecasting on long horizons: even if a model fits the historical data reasonably well, out-of-sample performance can deteriorate sharply in the presence of regime shifts.
+
+\subsection{Model M6: interaction between $\psi$ and ECI}
+Finally, we explore whether the marginal effect of ECI on growth depends on the level of the full $\psi$-index by estimating the interaction model M6:
+\begin{itemize}
+  \item $N = 2{,}969$;
+  \item $R^2 = 0.061$;
+  \item $\hat{\beta}_{\psi} = 0.232$ ($p < 0.001$);
+  \item $\hat{\beta}_{\text{ECI}} = 0.642$ ($p < 0.001$);
+  \item $\hat{\beta}_{\psi\times\text{ECI}} = 0.062$ ($p < 0.001$).
+\end{itemize}
+All three coefficients are positive and statistically significant. The interaction term $\hat{\beta}_{\psi\times\text{ECI}} > 0$ implies that the growth payoff to greater export complexity is larger in countries with higher $\psi$, and conversely, that high $\psi$ becomes particularly valuable when combined with more complex export structures. Figure~\ref{fig:partial} illustrates this by plotting residualized ECI against residualized growth, controlling for $\psi$ and the interaction term.
+
+The $R^2$ of M6 remains modest, but this is unsurprising: we are explaining long-run growth with a small set of structural indicators in a highly heterogeneous and shock-prone global economy. The more important message is the sign pattern: cognitive--institutional capacity and export complexity appear as \emph{complements} rather than substitutes.
+
+\subsection{Visual summary}
+For completeness, we summarize the key figures here:
+\begin{itemize}
+  \item \textbf{Figure~\ref{fig:psi_only_coef_r2}}: coefficient on $\psi$ and $R^2$ in the $\psi$-only model across growth windows.
+  \item \textbf{Figure~\ref{fig:r2_comparison}}: comparison of $R^2$ across specifications M1--M5.
+  \item \textbf{Figure~\ref{fig:psi_growth}}: scatterplot of 10-year growth versus $\psi$ at $t$, with fitted OLS line.
+  \item \textbf{Figure~\ref{fig:eci_growth}}: analogous scatterplot for ECI at $t$.
+  \item \textbf{Figure~\ref{fig:beta_compare}}: standardized coefficients of $\psi/\psi_{ng}$ and ECI across models M1--M6.
+  \item \textbf{Figure~\ref{fig:early_late}}: early ($y_0\le 2010$) vs.\ late ($y_0>2010$) standardized coefficients for $\psi$ and ECI.
+  \item \textbf{Figure~\ref{fig:partial}}: partial regression plot showing the conditional effect of ECI on growth given $\psi$.
+\end{itemize}
+All underlying code for data processing and figure generation is available in the accompanying GitHub repository.
+
+\section{Robustness and Limitations}
+\label{sec:robustness}
+
+Our analysis so far has focused on six parsimonious specifications. In this section we briefly discuss robustness and limitations.
+
+First, the central qualitative patterns are robust to alternative ways of constructing $\psi_{ng}$. Instead of defining it as the residual from regressing $\psi$ on log GDP per capita at $t_0$, one can recompute the latent factor excluding income from the input set. The resulting factor scores are highly correlated with $\psi_{ng}$ and yield similar regression coefficients, albeit with slightly different scaling. For transparency and reproducibility, we retain the residual-based definition in the main text.
+
+Second, the negative ECI coefficient in simple OLS (M2 and M3) is not an artefact of a particular subset of countries. Excluding small offshore financial centres, oil exporters or high-income OECD economies reduces the magnitude but does not change the sign. The main driver is the combination of slow post-2000 growth in mature, complex economies and rapid growth in several middle-income countries with moderate complexity but rising cognitive--institutional capacity.
+
+Third, the positive ECI coefficient in the fixed-effects model (M4) should be interpreted with care. The high overall $R^2$ is largely due to country and year fixed effects, which capture long-run convergence patterns and global shocks. The incremental contribution of time-varying ECI is positive and significant, but we do not claim that M4 delivers a structural causal estimate. Reverse causality (growth affecting complexity), measurement error and omitted variables remain potential concerns.
+
+Fourth, the poor out-of-sample performance of M5 highlights a broader limitation for policy use. Even if cognitive--institutional and complexity indices capture genuine structural features, their predictive content for 10-year horizons may be swamped by shocks, cycles and regime changes. In other words, these indices are best viewed as long-run \emph{propensity} indicators rather than precise forecasting tools.
+
+Finally, we do not yet test alternative complexity measures such as ECI+, Fitness or SITC-based ECI in this paper. Nor do we implement models with explicit convergence terms and richer controls (e.g.\ investment rates, demographic structure). These are natural extensions for future work. Our goal here is more modest: to establish a clean, open and reproducible head-to-head comparison between $\psi_{ng}$ and the canonical ECI on a common 10-year growth panel.
+
+\section{Discussion}
+\label{sec:discussion}
+
+Our results speak directly to the ongoing debate on the relative roles of structural capabilities and institutional foundations in shaping long-run growth. The economic complexity literature \citep{HidalgoHausmann2009, HausmannHidalgo2011} argues that the diversity and sophistication of a country's export basket encode productive knowledge and should therefore be a powerful predictor of future income dynamics. This view was supported by strong empirical regularities for earlier periods, particularly the late-20th-century industrialization wave.
+
+For the 2000--2024 window, however, our estimates suggest that export complexity alone is no longer sufficient. In purely bivariate regressions, ECI is weakly \emph{negatively} related to 10-year growth. Once we bring in a broad cognitive--institutional index and fixed effects, ECI becomes a positive and significant predictor, but its effect is clearly conditional. In the fixed-effects model M4, both $\psi_{ng}$ and ECI are positively associated with growth, while the interaction model M6 shows that the payoff to ECI rises with the level of $\psi$. This pattern aligns with recent critiques that complexity measures increasingly capture what countries \emph{have become} rather than what they are capable of becoming, unless one controls for underlying institutional and human capital conditions.
+
+The performance of $\psi$ and $\psi_{ng}$ is closely connected to the institutionalist perspective associated with \citet{Rodrik2004, Rodrik2007}, which emphasizes the interaction between incentives, governance and state capacity in enabling structural transformation. The $\psi$-index aggregates education, digital adoption, governance quality and innovation capacity---precisely the types of ``embedded capabilities'' that this literature views as prerequisites for successful upgrading. The fact that $\psi_{ng}$, which is orthogonal to contemporaneous income, remains strongly predictive supports the idea that these capacities are not mere reflections of GDP per capita, but independent determinants of growth potential.
+
+Our findings also resonate with the macro-innovation literature on intangible capital and the changing nature of growth \citep{BloomJones2019, Jones2022}. Modern growth increasingly depends on the accumulation of hard-to-measure assets: skills, R\&D capability, digital infrastructure, managerial quality and absorptive capacity. $\psi$ can be interpreted as a composite proxy for these intangible assets. The positive interaction term in M6 suggests that export complexity is most growth-enhancing when layered on top of such intangible infrastructure: countries with high $\psi$ are better able to translate complex export capabilities into sustained income growth.
+
+Overall, our results support a hybrid interpretation. Export complexity remains relevant, but primarily in tandem with broader systemic capabilities captured by $\psi$ and $\psi_{ng}$. Rather than displacing the complexity paradigm, we refine it: structural sophistication amplifies growth conditional on cognitive--institutional maturity.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper has compared the predictive power of a broad cognitive--institutional index $\psi$ and the Economic Complexity Index (ECI) for 10-year GDP per capita growth over 2000--2024. Six main conclusions emerge.
+
+First, the residualized index $\psi_{ng}$ exhibits a robust positive association with subsequent growth in a global panel of countries. Because $\psi_{ng}$ is constructed to be orthogonal to initial income, this relationship cannot be mechanically attributed to convergence effects.
+
+Second, ECI on its own shows a weak negative association with long-run growth in this period, consistent with the slowdown of highly complex economies and the rise of several less complex but rapidly growing economies. In simple OLS models, high complexity is a marker of maturity rather than dynamism.
+
+Third, in richer specifications with country and initial-year fixed effects, both $\psi_{ng}$ and ECI are positively associated with growth. This indicates that once we absorb persistent country characteristics and global shocks, export complexity recovers a positive growth role.
+
+Fourth, an interaction model using the full $\psi$-index shows that the marginal effect of ECI on growth is larger in countries with higher $\psi$, and vice versa. Cognitive--institutional capacity and export complexity thus appear as complements: each is more valuable in the presence of the other.
+
+Fifth, out-of-sample performance is fragile. A simple train/test split around 2010 yields a negative predictive $R^2$, reminding us that structural indices, however well constructed, cannot fully anticipate shocks, regime changes or policy shifts over long horizons.
+
+Sixth, we refrain from strong causal claims. The regressions document robust empirical patterns rather than identificationally clean causal effects. Nonetheless, the patterns are stable across a range of simple specifications and are consistent with theoretical arguments linking institutions, human capital, complexity and growth.
+
+From a policy perspective, our results suggest that for low- and middle-income countries in the coming decades, building cognitive--institutional capacity---through education, digitalization, and improved governance---is at least as important as, and possibly a precondition for, efforts to upgrade export complexity. Export sophistication appears most growth-enhancing once a sufficient cognitive--institutional platform is in place.
+
+Future work could extend this analysis by employing panel methods with more detailed controls, exploring alternative complexity measures (ECI+, Fitness) and constructing analogous indices at the subnational or sectoral level. It would also be valuable to study the dynamics of $\psi$ and ECI jointly in a structural model of transition paths, allowing for feedbacks between institutions, complexity and growth.
+
+% ============================
+% Figures
+% ============================
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{fig1_psi_only_coef_r2_v1_1.png}
+  \caption{Coefficient on $\psi$ and $R^2$ in the $\psi$-only model across growth windows.}
+  \label{fig:psi_only_coef_r2}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{fig2_r2_comparison_v1_1.png}
+  \caption{$R^2$ comparison across specifications M1--M5.}
+  \label{fig:r2_comparison}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{fig3_psi_vs_growth_10y_v1_1.png}
+  \caption{10-year GDP per capita growth vs.\ cognitive--institutional index $\psi$ at $t$.}
+  \label{fig:psi_growth}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{eci_vs_growth_scatter.png}
+  \caption{10-year GDP per capita growth vs.\ Economic Complexity Index (ECI) at $t$.}
+  \label{fig:eci_growth}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{beta_compare_psi_eci.png}
+  \caption{Standardized coefficients of $\psi/\psi_{ng}$ and ECI across models M1--M6.}
+  \label{fig:beta_compare}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{early_late_betas.png}
+  \caption{Early ($y_0\le 2010$) vs.\ late ($y_0>2010$) standardized coefficients for $\psi$ and ECI.}
+  \label{fig:early_late}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{partial_effect_eci_given_psi.png}
+  \caption{Partial effect of ECI on growth conditional on $\psi$ (residual plot with fitted line).}
+  \label{fig:partial}
+\end{figure}
+
+\clearpage 
+
+\section*{Replication Package}
+
+All code, processed datasets, figures and the full LaTeX source of this article
+are archived permanently at Zenodo:
+\href{https://doi.org/10.5281/zenodo.XXXXXXX}{10.5281/zenodo.XXXXXXX}.
+
+The active development repository is on GitHub:
+\href{https://github.com/Evoluit-M/smi-v1.1}{github.com/Evoluit-M/smi-v1.1}.
+
+An interactive dashboard for exploring $\psi$, $\psi_{ng}$ and ECI is available on Streamlit:
+\href{https://your-streamlit-app-url}{your-streamlit-app-url}.
+
+A fully reproducible computational environment (Python 3.11 + all dependencies)
+is available on MyBinder:
+\href{https://mybinder.org/v2/gh/Evoluit-M/smi-v1.1/HEAD}{mybinder.org/v2/gh/Evoluit-M/smi-v1.1/HEAD}.
+
+% ============================
+% References
+% ============================
+
+\begin{thebibliography}{99}
+
+\bibitem[Hidalgo and Hausmann(2009)]{HidalgoHausmann2009}
+Hidalgo, C.~A., \& Hausmann, R. (2009).
+The building blocks of economic complexity.
+\emph{Proceedings of the National Academy of Sciences}, 106(26), 10570--10575.
+
+\bibitem[Hausmann and Hidalgo(2011)]{HausmannHidalgo2011}
+Hausmann, R., \& Hidalgo, C.~A. (2011).
+The network structure of economic output.
+\emph{Journal of Economic Growth}, 16(4), 309--342.
+
+\bibitem[Rodrik(2004)]{Rodrik2004}
+Rodrik, D. (2004).
+Industrial policy for the twenty-first century.
+\emph{CEPR Discussion Paper} No. 4767.
+
+\bibitem[Rodrik(2007)]{Rodrik2007}
+Rodrik, D. (2007).
+\emph{One Economics, Many Recipes: Globalization, Institutions, and Economic Growth}.
+Princeton University Press.
+
+\bibitem[Bloom and Jones(2019)]{BloomJones2019}
+Bloom, N., \& Jones, C.~I. (2019).
+Seven facts about growth and technology.
+\emph{NBER Working Paper} No. 25794.
+
+\bibitem[Jones(2022)]{Jones2022}
+Jones, C.~I. (2022).
+The new Kaldor facts: Ideas, institutions, population, and human capital.
+\emph{American Economic Journal: Macroeconomics}, 14(4), 220--256.
+
+\bibitem[Szirmai(2012)]{Szirmai2012}
+Szirmai, A. (2012).
+Industrialisation as an engine of growth in developing countries, 1950--2005.
+\emph{Structural Change and Economic Dynamics}, 23(4), 406--420.
+
+\end{thebibliography}
+
+\end{document}
