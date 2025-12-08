@@ -76,7 +76,7 @@ This interactive page provides a **global view** of how countries perform in ter
 
 based on the paper:  
 **“ψ vs ECI: Cognitive–Institutional Capacity and Export Complexity as Predictors of Long-Run Growth”**  
-Zenodo DOI (placeholder): *10.5281/zenodo.XXXXXXX*
+Zenodo DOI: *10.5281/zenodo.17808798*
 """
 )
 
