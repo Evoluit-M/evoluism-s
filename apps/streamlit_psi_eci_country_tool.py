@@ -21,7 +21,7 @@ It is part of the replication package for the research article:
 > **“ψ vs ECI: Cognitive–Institutional Capacity and Export Complexity  
 > as Predictors of Long-Run Growth”**  
 > Evoluit-M (2025)  
-> Zenodo DOI: **10.5281/zenodo.XXXXXXX** (placeholder)
+> Zenodo DOI: **10.5281/zenodo.17808797**
 
 Dataset used here comes from the repository accompanying the article
 (`data/processed/growth_panel_psi_eci_10y_v1_2.csv`).
